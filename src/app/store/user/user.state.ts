@@ -31,9 +31,10 @@ export class UserState implements NgxsOnInit {
   @Action(Login)
   public login(ctx: StateContext<UserModel>, action: Login): Observable<any> {
     return from(this.api.login(action.email, action.password)).pipe(
-      map((response: { token: string }): any => {
+      map((response: { token: string; user: string }): any => {
         ctx.patchState({
-          apiKey: response.token
+          apiKey: response.token,
+          id: response.user
         })
 
         localStorage.setItem('apiKey', response.token)

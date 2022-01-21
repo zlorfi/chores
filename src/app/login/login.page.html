@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="logo"></div>
+    <form [formGroup]="loginForm" #form="ngForm">
+      <app-text-input formControlName="email" label="Email" type="email">
+        <app-input-error
+          *ngIf="
+            loginForm.get('email').touched &&
+            loginForm.hasError('required', ['email'])
+          "
+          >Email is required</app-input-error
+        >
+        <app-input-error
+          *ngIf="
+            loginForm.get('email').touched &&
+            loginForm.hasError('email', ['email'])
+          "
+          >Email is invalid</app-input-error
+        >
+      </app-text-input>
+      <div class="pw-container">
+        <app-text-input
+          formControlName="password"
+          label="Password"
+          type="password"
+        >
+          <app-input-error
+            *ngIf="
+              loginForm.get('password').touched &&
+              loginForm.hasError('required', ['password'])
+            "
+            >Password is required</app-input-error
+          >
+        </app-text-input>
+        <a class="forgot-pw" routerLink="/forgot-password"
+          >Forgot?</a
+        >
+      </div>
+      <div>
+        <app-submit-button [disabled]="loginForm.invalid" (click)="login()">Log in</app-submit-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

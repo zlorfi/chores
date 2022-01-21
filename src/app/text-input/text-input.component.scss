@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+ion-item {
+  --min-height: unset;
+  --padding-start: 0px;
+  --padding-end: 0px;
+  --inner-padding-start: 0px;
+  --inner-padding-end: 0px;
+  --inner-padding-bottom: 4px;
+  --border-color: var(--brownish-grey);
+  --background-focused: transparent;
+
+  ion-label {
+    --color: var(--brownish-grey);
+    height: 24px;
+    margin: 0;
+    padding: 0;
+  }
+
+  ion-input {
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+  }
+}
+
+:host.ng-touched.ng-invalid {
+  ion-item {
+    --border-color: var(--ion-color-danger);
+  }
+}

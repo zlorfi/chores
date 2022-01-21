@@ -1,0 +1,11 @@
+<div class="container" [class.keyboard-open]="openKeyboardMode">
+  <ion-button
+    [color]="color"
+    [fill]="fill"
+    [disabled]="disabled"
+    [expand]="openKeyboardMode ? 'full' : 'block'"
+  >
+    <ng-content></ng-content>
+  </ion-button>
+</div>
+
