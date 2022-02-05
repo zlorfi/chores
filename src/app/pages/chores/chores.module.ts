@@ -6,6 +6,7 @@ import { ChoresPage } from './chores.page';
 import { ExploreContainerComponentModule } from '../../components/explore-container/explore-container.module';
 
 import { ChoresPageRoutingModule } from './chores-routing.module';
+import { SubmitButtonComponent } from 'src/app/components/submit-button/submit-button.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ChoresPageRoutingModule } from './chores-routing.module';
     ExploreContainerComponentModule,
     ChoresPageRoutingModule
   ],
-  declarations: [ChoresPage]
+  declarations: [ChoresPage, SubmitButtonComponent]
 })
 export class ChoresPageModule { }

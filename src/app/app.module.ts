@@ -11,6 +11,7 @@ import { AppComponent } from './app.component'
 import { UserState } from './store/user/user.state'
 import { AppState } from './store/app.state'
 import { HttpClientModule } from '@angular/common/http'
+import { ChoresState } from './store/chores/chores.state'
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http'
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    NgxsModule.forRoot([AppState, UserState], {
+    NgxsModule.forRoot([AppState, UserState, ChoresState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({
@@ -30,4 +31,4 @@ import { HttpClientModule } from '@angular/common/http'
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

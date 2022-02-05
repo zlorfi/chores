@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Logout } from 'src/app/store/user/user.action';
 
 @Component({
   selector: 'app-chores',
@@ -7,6 +9,9 @@ import { Component } from '@angular/core';
 })
 export class ChoresPage {
 
-  constructor() { }
+  constructor(public store: Store) { }
 
+  public logout(): void {
+    this.store.dispatch(new Logout())
+  }
 }

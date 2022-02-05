@@ -28,14 +28,10 @@ export class AuthService implements CanActivate {
   }
 
   public isAuthenticated(): boolean {
-    if (this.getApiKey()) {
+    if (this.store.selectSnapshot(UserState.getApiKey) != null) {
       return true
     }
 
     return false
-  }
-
-  public getApiKey(): string {
-    return this.store.selectSnapshot(UserState.getApiKey)
   }
 }
