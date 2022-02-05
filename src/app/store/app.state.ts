@@ -5,8 +5,10 @@ import { UserState } from './user/user.state'
 
 @State<AppModel>({
   name: 'Chores',
-  defaults: {},
+  defaults: {
+    user: null
+  },
   children: [UserState]
 })
 @Injectable()
-export class AppState {}
+export class AppState { }

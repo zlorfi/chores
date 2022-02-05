@@ -41,4 +41,11 @@ export class ApiService {
       }
     })
   }
+
+  public logout(): Promise<any> {
+    return this.request({
+      method: 'delete',
+      endpoint: 'logout'
+    })
+  }
 }

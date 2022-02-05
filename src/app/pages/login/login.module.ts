@@ -7,9 +7,9 @@ import { IonicModule } from '@ionic/angular'
 import { LoginPageRoutingModule } from './login-routing.module'
 
 import { LoginPage } from './login.page'
-import { InputErrorComponent } from '../input-error/input-error.component'
-import { TextInputComponent } from '../text-input/text-input.component'
-import { SubmitButtonComponent } from '../submit-button/submit-button.component'
+import { InputErrorComponent } from '../../components/input-error/input-error.component'
+import { TextInputComponent } from '../../components/text-input/text-input.component'
+import { SubmitButtonComponent } from '../../components/submit-button/submit-button.component'
 
 @NgModule({
   imports: [
@@ -26,4 +26,4 @@ import { SubmitButtonComponent } from '../submit-button/submit-button.component'
     SubmitButtonComponent
   ]
 })
-export class LoginPageModule {}
+export class LoginPageModule { }

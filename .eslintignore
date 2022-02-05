@@ -1,0 +1,5 @@
+**/*.d.ts
+src/polyfills.ts
+src/main.ts
+dist/*
+.eslint.rc

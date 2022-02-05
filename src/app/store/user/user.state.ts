@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core'
 import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store'
 import { from, Observable } from 'rxjs'
 import { ApiService } from '../../services/api/api.service'
-import { Login } from './user.action'
+import { Login, Logout } from './user.action'
 import { UserModel } from './user.model'
 import { map } from 'rxjs/operators'
 
 @State<UserModel>({
-  name: 'User',
+  name: 'user',
   defaults: {
     id: null,
     apiKey: null
@@ -15,17 +15,11 @@ import { map } from 'rxjs/operators'
 })
 @Injectable()
 export class UserState implements NgxsOnInit {
-  public constructor(private api: ApiService) {}
+  public constructor(private api: ApiService) { }
 
   @Selector()
   public static getApiKey(state: UserModel): string {
     return state.apiKey
-  }
-
-  public ngxsOnInit(ctx: StateContext<UserModel>): void {
-    ctx.patchState({
-      apiKey: localStorage.getItem('apiKey') || null
-    })
   }
 
   @Action(Login)
@@ -40,5 +34,25 @@ export class UserState implements NgxsOnInit {
         localStorage.setItem('apiKey', response.token)
       })
     )
+  }
+
+  @Action(Logout)
+  public logout(ctx: StateContext<UserModel>): Observable<any> {
+    return from(this.api.logout()).pipe(
+      map((): void => {
+        localStorage.removeItem('apiKey')
+
+        ctx.patchState({
+          id: null,
+          apiKey: null
+        })
+      })
+    )
+  }
+
+  public ngxsOnInit(ctx: StateContext<UserModel>): void {
+    ctx.patchState({
+      apiKey: localStorage.getItem('apiKey') || null
+    })
   }
 }

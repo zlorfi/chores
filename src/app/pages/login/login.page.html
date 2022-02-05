@@ -9,41 +9,28 @@
     <div class="logo"></div>
     <form [formGroup]="loginForm" #form="ngForm">
       <app-text-input formControlName="email" label="Email" type="email">
-        <app-input-error
-          *ngIf="
+        <app-input-error *ngIf="
             loginForm.get('email').touched &&
             loginForm.hasError('required', ['email'])
-          "
-          >Email is required</app-input-error
-        >
-        <app-input-error
-          *ngIf="
+          ">Email is required</app-input-error>
+        <app-input-error *ngIf="
             loginForm.get('email').touched &&
             loginForm.hasError('email', ['email'])
-          "
-          >Email is invalid</app-input-error
-        >
+          ">Email is invalid</app-input-error>
       </app-text-input>
       <div class="pw-container">
-        <app-text-input
-          formControlName="password"
-          label="Password"
-          type="password"
-        >
-          <app-input-error
-            *ngIf="
+        <app-text-input formControlName="password" label="Password" type="password">
+          <app-input-error *ngIf="
               loginForm.get('password').touched &&
               loginForm.hasError('required', ['password'])
-            "
-            >Password is required</app-input-error
-          >
+            ">Password is required</app-input-error>
         </app-text-input>
-        <a class="forgot-pw" routerLink="/forgot-password"
-          >Forgot?</a
-        >
       </div>
       <div>
         <app-submit-button [disabled]="loginForm.invalid" (click)="login()">Log in</app-submit-button>
+      </div>
+      <div>
+        <app-submit-button (click)="logout()">Logout</app-submit-button>
       </div>
     </form>
   </div>
