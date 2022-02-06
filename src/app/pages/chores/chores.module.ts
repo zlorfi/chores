@@ -1,7 +1,7 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChoresPage } from './chores.page';
 import { ChoresPageRoutingModule } from './chores-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
@@ -11,6 +11,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     ComponentsModule,
     ChoresPageRoutingModule
   ],

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ChoresToday } from 'src/app/store/chores/chores.action';
+import { ChoresToday, ToggleItem } from 'src/app/store/chores/chores.action';
 import { Chore } from 'src/app/store/chores/chores.model';
 import { ChoresState } from 'src/app/store/chores/chores.state';
-import { Logout } from 'src/app/store/user/user.action';
+import { UserState } from 'src/app/store/user/user.state';
 
 @Component({
   selector: 'app-chores',
@@ -16,11 +15,13 @@ export class ChoresPage implements OnInit {
   @Select(ChoresState.getChores)
   public chores$: Observable<Chore[]>
 
-  constructor(public store: Store, private navController: NavController) { }
+  @Select(UserState.getUserName)
+  public userName$: Observable<string>
 
-  public logout(): void {
-    this.store.dispatch(new Logout())
-    this.navController.navigateRoot('/login')
+  constructor(public store: Store) { }
+
+  public toggleItem(id: string): void {
+    this.store.dispatch(new ToggleItem(id))
   }
 
   ngOnInit(): void {

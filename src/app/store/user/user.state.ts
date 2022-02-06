@@ -11,7 +11,8 @@ import { map } from 'rxjs/operators'
   defaults: {
     id: null,
     apiKey: null,
-    canEdit: false
+    canEdit: false,
+    name: null
   }
 })
 @Injectable()
@@ -33,6 +34,10 @@ export class UserState implements NgxsOnInit {
     return state.canEdit
   }
 
+  @Selector()
+  public static getUserName(state: UserModel): string {
+    return state.name
+  }
 
   @Action(Login)
   public login(ctx: StateContext<UserModel>, action: Login): Observable<any> {

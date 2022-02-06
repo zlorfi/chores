@@ -43,10 +43,6 @@ export class LoginPage {
       })
   }
 
-  public logout(): void {
-    this.store.dispatch(new Logout())
-  }
-
   private async showLoginFailDialog(): Promise<any> {
     const alert = await this.alertCtrl.create({
       header: 'Login failed',

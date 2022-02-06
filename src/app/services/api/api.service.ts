@@ -64,4 +64,12 @@ export class ApiService {
       headers: this.bearerToken()
     })
   }
+
+  public toggleItem(id: string): Observable<any> {
+    return this.request({
+      method: 'get',
+      endpoint: `tasks/${id}/toggle`,
+      headers: this.bearerToken()
+    })
+  }
 }
