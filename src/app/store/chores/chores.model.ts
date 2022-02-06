@@ -3,13 +3,7 @@ export interface ChoresModel {
 }
 
 export interface Chore {
-  id: number
-  title: string
-  monday: boolean
-  tuesday: boolean,
-  wednesday: boolean,
-  thursday: boolean,
-  friday: boolean,
-  saturday: boolean,
-  sunday: boolean
+  id: string
+  task: string
+  complete: boolean
 }

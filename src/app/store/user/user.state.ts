@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store'
-import { from, Observable } from 'rxjs'
+import { Observable } from 'rxjs'
 import { ApiService } from '../../services/api/api.service'
 import { Login, Logout } from './user.action'
 import { UserModel } from './user.model'
@@ -22,25 +22,35 @@ export class UserState implements NgxsOnInit {
     return state.apiKey
   }
 
+  @Selector()
+  public static getUserId(state: UserModel): string {
+    return state.id
+  }
+
+
   @Action(Login)
   public login(ctx: StateContext<UserModel>, action: Login): Observable<any> {
-    return from(this.api.login(action.email, action.password)).pipe(
-      map((response: { token: string; user: string }): any => {
-        ctx.patchState({
-          apiKey: response.token,
-          id: response.user
-        })
+    return this.api.login(action.email, action.password).pipe(
+      map((response: any): any => {
+        if (response.body && response.status === 200) {
+          ctx.patchState({
+            apiKey: response.body.token,
+            id: response.body.user
+          })
 
-        localStorage.setItem('apiKey', response.token)
+          localStorage.setItem('apiKey', response.body.token)
+          localStorage.setItem('userId', response.body.user)
+        }
       })
     )
   }
 
   @Action(Logout)
   public logout(ctx: StateContext<UserModel>): Observable<any> {
-    return from(this.api.logout()).pipe(
+    return this.api.logout().pipe(
       map((): void => {
         localStorage.removeItem('apiKey')
+        localStorage.removeItem('userId')
 
         ctx.patchState({
           id: null,
@@ -52,7 +62,8 @@ export class UserState implements NgxsOnInit {
 
   public ngxsOnInit(ctx: StateContext<UserModel>): void {
     ctx.patchState({
-      apiKey: localStorage.getItem('apiKey') || null
+      apiKey: localStorage.getItem('apiKey') || null,
+      id: localStorage.getItem('userId') || null
     })
   }
 }

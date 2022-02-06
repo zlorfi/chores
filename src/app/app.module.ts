@@ -10,8 +10,9 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { UserState } from './store/user/user.state'
 import { AppState } from './store/app.state'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ChoresState } from './store/chores/chores.state'
+import { HttpConfigInterceptor } from './services/api/http-interceptor'
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,7 @@ import { ChoresState } from './store/chores/chores.state'
       disabled: environment.production
     })
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

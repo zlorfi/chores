@@ -15,5 +15,8 @@
   <div>
     <app-submit-button (click)="logout()">Log out</app-submit-button>
   </div>
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+
+  <ng-container *ngFor="let chore of (chores$ | async)">
+    <li>{{ chore.task }}</li>
+  </ng-container>
 </ion-content>
