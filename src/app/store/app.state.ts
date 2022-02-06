@@ -6,8 +6,7 @@ import { UserState } from './user/user.state'
 
 @State<AppModel>({
   name: 'Chores',
-  defaults: {
-  },
+  defaults: {},
   children: [UserState, ChoresState]
 })
 @Injectable()

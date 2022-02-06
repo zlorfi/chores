@@ -10,7 +10,8 @@ import { map } from 'rxjs/operators'
   name: 'user',
   defaults: {
     id: null,
-    apiKey: null
+    apiKey: null,
+    canEdit: false
   }
 })
 @Injectable()
@@ -27,6 +28,11 @@ export class UserState implements NgxsOnInit {
     return state.id
   }
 
+  @Selector()
+  public static canEdit(state: UserModel): boolean {
+    return state.canEdit
+  }
+
 
   @Action(Login)
   public login(ctx: StateContext<UserModel>, action: Login): Observable<any> {
@@ -35,7 +41,9 @@ export class UserState implements NgxsOnInit {
         if (response.body && response.status === 200) {
           ctx.patchState({
             apiKey: response.body.token,
-            id: response.body.user
+            id: response.body.user,
+            canEdit: response.body.canEdit,
+            name: response.body.name
           })
 
           localStorage.setItem('apiKey', response.body.token)
@@ -46,18 +54,14 @@ export class UserState implements NgxsOnInit {
   }
 
   @Action(Logout)
-  public logout(ctx: StateContext<UserModel>): Observable<any> {
-    return this.api.logout().pipe(
-      map((): void => {
-        localStorage.removeItem('apiKey')
-        localStorage.removeItem('userId')
+  public logout(ctx: StateContext<UserModel>): void {
+    localStorage.removeItem('apiKey')
+    localStorage.removeItem('userId')
 
-        ctx.patchState({
-          id: null,
-          apiKey: null
-        })
-      })
-    )
+    ctx.patchState({
+      id: null,
+      apiKey: null
+    })
   }
 
   public ngxsOnInit(ctx: StateContext<UserModel>): void {

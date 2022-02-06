@@ -1,4 +1,6 @@
 export interface UserModel {
   id: string
-  apiKey: string
+  apiKey: string,
+  canEdit: boolean,
+  name?: string
 }

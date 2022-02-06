@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { UserState } from 'src/app/store/user/user.state';
 
 @Component({
   selector: 'app-tabs',
@@ -6,7 +9,6 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
-  constructor() {}
-
+  @Select(UserState.canEdit)
+  public canEdit$: Observable<boolean>
 }
