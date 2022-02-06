@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Component } from '@angular/core'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AlertController, NavController } from '@ionic/angular'
 import { Store } from '@ngxs/store'
 import { Login, Logout } from '../../store/user/user.action'
@@ -10,16 +10,19 @@ import { Login, Logout } from '../../store/user/user.action'
   styleUrls: ['./login.page.scss']
 })
 export class LoginPage {
-  public loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required)
-  })
+  public loginForm: FormGroup
 
   public constructor(
     private store: Store,
     private alertCtrl: AlertController,
-    private navCtrl: NavController
-  ) { }
+    private navCtrl: NavController,
+    public formBuilder: FormBuilder
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required])
+    })
+  }
 
   public login(): void {
     if (this.loginForm.invalid) {

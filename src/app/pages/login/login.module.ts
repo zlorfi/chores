@@ -1,15 +1,10 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-
 import { IonicModule } from '@ionic/angular'
-
 import { LoginPageRoutingModule } from './login-routing.module'
-
 import { LoginPage } from './login.page'
-import { InputErrorComponent } from '../../components/input-error/input-error.component'
-import { TextInputComponent } from '../../components/text-input/text-input.component'
-import { SubmitButtonComponent } from '../../components/submit-button/submit-button.component'
+import { ComponentsModule } from 'src/app/components/components.module'
 
 @NgModule({
   imports: [
@@ -17,13 +12,9 @@ import { SubmitButtonComponent } from '../../components/submit-button/submit-but
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    LoginPageRoutingModule
+    LoginPageRoutingModule,
+    ComponentsModule
   ],
-  declarations: [
-    LoginPage,
-    InputErrorComponent,
-    TextInputComponent,
-    SubmitButtonComponent
-  ]
+  declarations: [LoginPage]
 })
 export class LoginPageModule { }

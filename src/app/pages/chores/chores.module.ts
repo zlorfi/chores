@@ -3,19 +3,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChoresPage } from './chores.page';
-import { ExploreContainerComponentModule } from '../../components/explore-container/explore-container.module';
-
 import { ChoresPageRoutingModule } from './chores-routing.module';
-import { SubmitButtonComponent } from 'src/app/components/submit-button/submit-button.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
+    ComponentsModule,
     ChoresPageRoutingModule
   ],
-  declarations: [ChoresPage, SubmitButtonComponent]
+  declarations: [ChoresPage]
 })
 export class ChoresPageModule { }
