@@ -2,8 +2,8 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { EditChoresPage } from './edit-chores.page';
+import { EditChoresPageRoutingModule } from './edit-chores-routing.module';
 import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -12,8 +12,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     ComponentsModule,
-    Tab2PageRoutingModule
+    EditChoresPageRoutingModule
   ],
-  declarations: [Tab2Page]
+  declarations: [EditChoresPage]
 })
-export class Tab2PageModule { }
+export class EditChoresPageModule { }

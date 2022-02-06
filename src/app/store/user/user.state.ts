@@ -53,6 +53,7 @@ export class UserState implements NgxsOnInit {
 
           localStorage.setItem('apiKey', response.body.token)
           localStorage.setItem('userId', response.body.user)
+          localStorage.setItem('canEdit', response.body.canEdit)
         }
       })
     )
@@ -62,6 +63,7 @@ export class UserState implements NgxsOnInit {
   public logout(ctx: StateContext<UserModel>): void {
     localStorage.removeItem('apiKey')
     localStorage.removeItem('userId')
+    localStorage.removeItem('canEdit')
 
     ctx.patchState({
       id: null,
@@ -72,7 +74,8 @@ export class UserState implements NgxsOnInit {
   public ngxsOnInit(ctx: StateContext<UserModel>): void {
     ctx.patchState({
       apiKey: localStorage.getItem('apiKey') || null,
-      id: localStorage.getItem('userId') || null
+      id: localStorage.getItem('userId') || null,
+      canEdit: !!localStorage.getItem('canEdit') || false
     })
   }
 }

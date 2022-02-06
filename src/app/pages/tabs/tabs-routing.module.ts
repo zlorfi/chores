@@ -14,8 +14,8 @@ const routes: Routes = [
         loadChildren: () => import('../chores/chores.module').then(m => m.ChoresPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'editChores',
+        loadChildren: () => import('../edit-chores/edit-chores.module').then(m => m.EditChoresPageModule)
       },
       {
         path: '',

@@ -30,13 +30,14 @@ export class ChoresState implements NgxsOnInit {
     return state.items.every(chore => chore.complete)
   }
 
-
   @Action(ChoresToday)
   public choresToday(ctx: StateContext<ChoresModel>): Observable<any> {
     return this.api.getChoresToday().pipe(map((response: any): any => {
-      return ctx.patchState({
-        items: response.body
-      })
+      if (response.status === 200) {
+        return ctx.patchState({
+          items: response.body
+        })
+      }
     }))
   }
 
