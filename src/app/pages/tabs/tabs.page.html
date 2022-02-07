@@ -1,7 +1,9 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="chores">
-      <ion-icon [name]="(allDone$ | async) ? 'file-tray' : 'file-tray-full'"></ion-icon>
+      <ion-icon [name]="(allDone$ | async) ? 'file-tray' : 'file-tray-full'">
+      </ion-icon>
+      <ion-badge color="warning" *ngIf="(amountLeft$ | async) != 0">{{ amountLeft$ | async }}</ion-badge>
       <ion-label>Chores</ion-label>
     </ion-tab-button>
 

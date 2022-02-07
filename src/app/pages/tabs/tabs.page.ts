@@ -18,6 +18,9 @@ export class TabsPage {
   @Select(ChoresState.allDone)
   public allDone$: Observable<boolean>
 
+  @Select(ChoresState.amountLeft)
+  public amountLeft$: Observable<number>
+
   public constructor(private store: Store, private navController: NavController) { }
 
   public logout(): void {

@@ -72,4 +72,12 @@ export class ApiService {
       headers: this.bearerToken()
     })
   }
+
+  public summaryLastWeek(): Observable<any> {
+    return this.request({
+      method: 'get',
+      endpoint: 'days/summary',
+      headers: this.bearerToken()
+    })
+  }
 }

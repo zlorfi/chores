@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AlertController, NavController } from '@ionic/angular'
 import { Store } from '@ngxs/store'
-import { Login, Logout } from '../../store/user/user.action'
+import { Login } from '../../store/user/user.action'
 
 @Component({
   selector: 'app-login',

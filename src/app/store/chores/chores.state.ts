@@ -10,7 +10,8 @@ import { Chore, ChoresModel } from './chores.model'
 @State<ChoresModel>({
   name: 'chores',
   defaults: {
-    items: []
+    items: [],
+    summary: []
   }
 })
 @Injectable()
@@ -30,6 +31,11 @@ export class ChoresState implements NgxsOnInit {
     return state.items.every(chore => chore.complete)
   }
 
+  @Selector()
+  public static amountLeft(state: ChoresModel): number {
+    return state.items.filter(chore => !chore.complete).length
+  }
+
   @Action(ChoresToday)
   public choresToday(ctx: StateContext<ChoresModel>): Observable<any> {
     return this.api.getChoresToday().pipe(map((response: any): any => {
@@ -43,13 +49,15 @@ export class ChoresState implements NgxsOnInit {
 
   @Action(ToggleItem)
   public toggleItem(ctx: StateContext<ChoresModel>, action: ToggleItem): Observable<any> {
-    return this.api.toggleItem(action.id).pipe(map((): any => {
-      const item = ctx.getState().items.find((item: Chore) => item.id === action.id)
-      return ctx.setState(
-        patch({
-          items: updateItem((chore: Chore) => chore.id === action.id, patch({ complete: !item.complete }))
-        })
-      )
+    return this.api.toggleItem(action.id).pipe(map((response: any): any => {
+      if (response.status === 204) {
+        const item = ctx.getState().items.find((item: Chore) => item.id === action.id)
+        return ctx.setState(
+          patch({
+            items: updateItem((chore: Chore) => chore.id === action.id, patch({ complete: !item.complete }))
+          })
+        )
+      }
     }))
   }
 }

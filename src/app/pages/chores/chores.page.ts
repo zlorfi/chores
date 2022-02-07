@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ChoresToday, ToggleItem } from 'src/app/store/chores/chores.action';
@@ -18,10 +19,14 @@ export class ChoresPage implements OnInit {
   @Select(UserState.getUserName)
   public userName$: Observable<string>
 
-  constructor(public store: Store) { }
+  constructor(public store: Store, private navController: NavController) { }
 
   public toggleItem(id: string): void {
-    this.store.dispatch(new ToggleItem(id))
+    this.store.dispatch(new ToggleItem(id)).subscribe({
+      error: (error: any): void => {
+        this.navController.navigateRoot('/login')
+      }
+    })
   }
 
   ngOnInit(): void {
