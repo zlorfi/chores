@@ -10,8 +10,7 @@ export interface Chore {
 }
 
 export interface Day {
-  day: {
-    done: number,
-    sum: number
-  }
+  date: string,
+  done: number,
+  sum: number
 }

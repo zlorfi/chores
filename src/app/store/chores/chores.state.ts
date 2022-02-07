@@ -4,8 +4,8 @@ import { patch, updateItem } from '@ngxs/store/operators'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { ApiService } from '../../services/api/api.service'
-import { ChoresToday, ToggleItem } from './chores.action'
-import { Chore, ChoresModel } from './chores.model'
+import { ChoresToday, ToggleItem, WeeklySummary } from './chores.action'
+import { Chore, ChoresModel, Day } from './chores.model'
 
 @State<ChoresModel>({
   name: 'chores',
@@ -36,6 +36,12 @@ export class ChoresState implements NgxsOnInit {
     return state.items.filter(chore => !chore.complete).length
   }
 
+
+  @Selector()
+  public static weeklySummary(state: ChoresModel): Day[] {
+    return state.summary
+  }
+
   @Action(ChoresToday)
   public choresToday(ctx: StateContext<ChoresModel>): Observable<any> {
     return this.api.getChoresToday().pipe(map((response: any): any => {
@@ -52,11 +58,24 @@ export class ChoresState implements NgxsOnInit {
     return this.api.toggleItem(action.id).pipe(map((response: any): any => {
       if (response.status === 204) {
         const item = ctx.getState().items.find((item: Chore) => item.id === action.id)
-        return ctx.setState(
+        ctx.setState(
           patch({
             items: updateItem((chore: Chore) => chore.id === action.id, patch({ complete: !item.complete }))
           })
         )
+
+        ctx.dispatch(new WeeklySummary)
+      }
+    }))
+  }
+
+  @Action(WeeklySummary)
+  public weeklySummary(ctx: StateContext<ChoresModel>): Observable<any> {
+    return this.api.summaryLastWeek().pipe(map((response: any): any => {
+      if (response.status === 200) {
+        return ctx.patchState({
+          summary: response.body
+        })
       }
     }))
   }

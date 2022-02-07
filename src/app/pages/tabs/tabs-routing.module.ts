@@ -18,6 +18,10 @@ const routes: Routes = [
         loadChildren: () => import('../edit-chores/edit-chores.module').then(m => m.EditChoresPageModule)
       },
       {
+        path: 'summary',
+        loadChildren: () => import('../summary/summary.module').then(m => m.SummaryPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/chores',
         pathMatch: 'full'
