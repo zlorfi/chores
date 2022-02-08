@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { WeeklySummary } from 'src/app/store/chores/chores.action';
 import { Day } from 'src/app/store/chores/chores.model';
 import { ChoresState } from 'src/app/store/chores/chores.state';
 import * as moment from 'moment'
@@ -11,7 +10,7 @@ import * as moment from 'moment'
   templateUrl: './summary.page.html',
   styleUrls: ['./summary.page.scss'],
 })
-export class SummaryPage implements OnInit {
+export class SummaryPage {
   @Select(ChoresState.weeklySummary)
   public summary$: Observable<Day[]>
 
@@ -45,10 +44,5 @@ export class SummaryPage implements OnInit {
       lastWeek: '[Last] dddd',
       sameElse: 'DD/MM/YYYY'
     })
-  }
-
-  ngOnInit(): void {
-    this.store.dispatch(new WeeklySummary)
-    console.log(this.summary$)
   }
 }

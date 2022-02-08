@@ -58,13 +58,11 @@ export class ChoresState implements NgxsOnInit {
     return this.api.toggleItem(action.id).pipe(map((response: any): any => {
       if (response.status === 204) {
         const item = ctx.getState().items.find((item: Chore) => item.id === action.id)
-        ctx.setState(
+        return ctx.setState(
           patch({
             items: updateItem((chore: Chore) => chore.id === action.id, patch({ complete: !item.complete }))
           })
         )
-
-        ctx.dispatch(new WeeklySummary)
       }
     }))
   }

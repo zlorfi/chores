@@ -7,10 +7,11 @@ import { InputErrorComponent } from './input-error/input-error.component'
 import { SubmitButtonComponent } from './submit-button/submit-button.component'
 import { TextInputComponent } from './text-input/text-input.component'
 import { RouterModule } from '@angular/router'
+import { HeaderComponent } from './header/header.component'
 
 @NgModule({
   imports: [CommonModule, IonicModule, FormsModule, RouterModule],
-  declarations: [ExploreContainerComponent, InputErrorComponent, SubmitButtonComponent, TextInputComponent],
-  exports: [ExploreContainerComponent, InputErrorComponent, SubmitButtonComponent, TextInputComponent]
+  declarations: [ExploreContainerComponent, InputErrorComponent, SubmitButtonComponent, TextInputComponent, HeaderComponent],
+  exports: [ExploreContainerComponent, InputErrorComponent, SubmitButtonComponent, TextInputComponent, HeaderComponent]
 })
 export class ComponentsModule { }

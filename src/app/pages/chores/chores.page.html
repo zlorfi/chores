@@ -1,18 +1,6 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Chores
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Hello, ' + (userName$ | async)"></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Hello, {{ userName$ | async }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <ion-list>
     <ion-item *ngFor="let chore of (chores$ | async)">
       <ion-label class="ion-text-wrap">{{ chore.task }}</ion-label>

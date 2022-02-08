@@ -1,4 +1,4 @@
-<ion-tabs>
+<ion-tabs #tabs (ionTabsDidChange)="onIonTabBarChanged()">
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="chores">
       <ion-icon [name]="(allDone$ | async) ? 'file-tray' : 'file-tray-full'">
