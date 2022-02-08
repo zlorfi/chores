@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Observable } from 'rxjs'
-import { Chore } from 'src/app/store/chores/chores.model'
+import { DailyChore } from 'src/app/store/chores/chores.model'
 import { Store } from '@ngxs/store'
 import { UserState } from 'src/app/store/user/user.state'
 
@@ -57,10 +57,29 @@ export class ApiService {
   }
 
   public getChoresToday(): Observable<any> {
-    return this.request<{ body: { chores: { items: Chore[] } } }>({
+    return this.request<{ body: { chores: { items: DailyChore[] } } }>({
       method: 'get',
       endpoint: 'days/today',
       params: { created_by: this.store.selectSnapshot(UserState.getUserId) },
+      headers: this.bearerToken()
+    })
+  }
+
+  public getChores(): Observable<any> {
+    return this.request({
+      method: 'get',
+      endpoint: 'chores',
+      headers: this.bearerToken()
+    })
+  }
+
+  public patchChore(id: string, key: string, value: boolean): Observable<any> {
+    return this.request({
+      method: 'patch',
+      endpoint: `chores/${id}`,
+      body: {
+        [key]: value
+      },
       headers: this.bearerToken()
     })
   }

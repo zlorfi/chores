@@ -4,14 +4,15 @@ import { patch, updateItem } from '@ngxs/store/operators'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { ApiService } from '../../services/api/api.service'
-import { ChoresToday, ToggleItem, WeeklySummary } from './chores.action'
-import { Chore, ChoresModel, Day } from './chores.model'
+import { ChoresToday, GetChores, ToggleItem, UpdateChore, WeeklySummary } from './chores.action'
+import { DailyChore, ChoresModel, Day, Chore } from './chores.model'
 
 @State<ChoresModel>({
   name: 'chores',
   defaults: {
     items: [],
-    summary: []
+    summary: [],
+    chores: []
   }
 })
 @Injectable()
@@ -22,8 +23,13 @@ export class ChoresState implements NgxsOnInit {
   }
 
   @Selector()
-  public static getChores(state: ChoresModel): Chore[] {
+  public static getChoresToday(state: ChoresModel): DailyChore[] {
     return state.items
+  }
+
+  @Selector()
+  public static getChores(state: ChoresModel): Chore[] {
+    return state.chores
   }
 
   @Selector()
@@ -53,14 +59,40 @@ export class ChoresState implements NgxsOnInit {
     }))
   }
 
+  @Action(GetChores)
+  public getChores(ctx: StateContext<ChoresModel>): Observable<any> {
+    return this.api.getChores().pipe(map((response: any): any => {
+      if (response.status === 200) {
+        return ctx.patchState({
+          chores: response.body
+        })
+      }
+    }))
+  }
+
   @Action(ToggleItem)
   public toggleItem(ctx: StateContext<ChoresModel>, action: ToggleItem): Observable<any> {
     return this.api.toggleItem(action.id).pipe(map((response: any): any => {
       if (response.status === 204) {
-        const item = ctx.getState().items.find((item: Chore) => item.id === action.id)
+        const item = ctx.getState().items.find((item: DailyChore) => item.id === action.id)
         return ctx.setState(
           patch({
-            items: updateItem((chore: Chore) => chore.id === action.id, patch({ complete: !item.complete }))
+            items: updateItem((chore: DailyChore) => chore.id === action.id, patch({ complete: !item.complete }))
+          })
+        )
+      }
+    }))
+  }
+
+
+  @Action(UpdateChore)
+  public updateChore(ctx: StateContext<ChoresModel>, action: UpdateChore): Observable<any> {
+    return this.api.patchChore(action.id, action.key, action.value).pipe(map((response: any): any => {
+      if (response.status === 200) {
+        const chore = ctx.getState().chores.find((chore: Chore) => chore.id === action.id)
+        return ctx.setState(
+          patch({
+            chores: updateItem((chore: Chore) => chore.id === action.id, response.body)
           })
         )
       }

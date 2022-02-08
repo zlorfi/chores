@@ -3,7 +3,7 @@ import { NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ToggleItem } from 'src/app/store/chores/chores.action';
-import { Chore } from 'src/app/store/chores/chores.model';
+import { DailyChore } from 'src/app/store/chores/chores.model';
 import { ChoresState } from 'src/app/store/chores/chores.state';
 import { UserState } from 'src/app/store/user/user.state';
 
@@ -13,8 +13,8 @@ import { UserState } from 'src/app/store/user/user.state';
   styleUrls: ['chores.page.scss']
 })
 export class ChoresPage {
-  @Select(ChoresState.getChores)
-  public chores$: Observable<Chore[]>
+  @Select(ChoresState.getChoresToday)
+  public dailyChores$: Observable<DailyChore[]>
 
   @Select(UserState.getUserName)
   public userName$: Observable<string>

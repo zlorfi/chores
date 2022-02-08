@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonTabs, NavController } from '@ionic/angular';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { ChoresToday, WeeklySummary } from 'src/app/store/chores/chores.action';
+import { ChoresToday, GetChores, WeeklySummary } from 'src/app/store/chores/chores.action';
 import { ChoresState } from 'src/app/store/chores/chores.state';
 import { Logout } from 'src/app/store/user/user.action';
 import { UserState } from 'src/app/store/user/user.state';
@@ -34,6 +34,8 @@ export class TabsPage {
       this.store.dispatch(new ChoresToday)
     } else if (selectedTab === 'summary') {
       this.store.dispatch(new WeeklySummary)
+    } else if (selectedTab === 'editChores') {
+      this.store.dispatch(new GetChores)
     }
   }
 

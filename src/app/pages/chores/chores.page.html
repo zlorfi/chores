@@ -2,7 +2,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let chore of (chores$ | async)">
+    <ion-item *ngFor="let chore of (dailyChores$ | async)">
       <ion-label class="ion-text-wrap">{{ chore.task }}</ion-label>
       <ion-checkbox color="primary" (click)="toggleItem(chore.id)" [checked]="chore.complete" slot="start">
       </ion-checkbox>
