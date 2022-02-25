@@ -18,7 +18,10 @@ export class SummaryPage {
 
 
   public calculatePercentage(day: Day): number {
-    return (day.done / day.sum) * 100
+    if (day) {
+      return (day.done / day.sum) * 100
+    }
+    return 0
   }
 
   public colorDay(day: Day): string {

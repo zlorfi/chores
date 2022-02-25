@@ -3,62 +3,46 @@
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-item *ngFor="let chore of (chores$ | async)">
-      <ion-label class="ion-text-wrap">{{ chore.title }}</ion-label>
-      <ion-button [id]="chore.id">Click to open modal</ion-button>
-      <ion-modal [trigger]="chore.id" [swipeToClose]="true" [presentingElement]="routerOutlet.nativeEl">
-        <ng-template>
-          <ion-header translucent>
-            <ion-toolbar>
-              <ion-title>Edit days</ion-title>
-              <ion-buttons slot="end">
-                <ion-button (click)="modalController.dismiss()">Close</ion-button>
-              </ion-buttons>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content>
-            <ion-list-header>
-              <ion-label>{{ chore.title }}</ion-label>
-            </ion-list-header>
-            <ion-list>
-              <ion-item>
-                <ion-label>Monday</ion-label>
-                <ion-checkbox color="primary" (click)="checkChore(chore.id, 'monday', chore.monday)"
-                  [checked]="chore.monday" slot="start"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Tuesday</ion-label>
-                <ion-checkbox color="primary" (click)="checkChore(chore.id, 'tuesday', chore.tuesday)"
-                  [checked]="chore.tuesday" slot="start"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Wednesday</ion-label>
-                <ion-checkbox color="primary" (click)="checkChore(chore.id, 'wednesday', chore.wednesday)"
-                  [checked]="chore.wednesday" slot="start"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Thursday</ion-label>
-                <ion-checkbox color="primary" (click)="checkChore(chore.id, 'thursday', chore.thursday)"
-                  [checked]="chore.thursday" slot="start"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Friday</ion-label>
-                <ion-checkbox color="primary" (click)="checkChore(chore.id, 'friday', chore.friday)"
-                  [checked]="chore.friday" slot="start"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Saturday</ion-label>
-                <ion-checkbox color="primary" (click)="checkChore(chore.id, 'saturday', chore.saturday)"
-                  [checked]="chore.saturday" slot="start"></ion-checkbox>
-              </ion-item>
-              <ion-item>
-                <ion-label>Sunday</ion-label>
-                <ion-checkbox color="primary" (click)="checkChore(chore.id, 'sunday', chore.sunday)"
-                  [checked]="chore.sunday" slot="start"></ion-checkbox>
-              </ion-item>
-            </ion-list>
-          </ion-content>
-        </ng-template>
-      </ion-modal>
+      <ion-list-header>
+        <ion-label class="ion-text-wrap">{{ chore.title }}</ion-label>
+      </ion-list-header>
+      <ion-list>
+        <ion-item>
+          <ion-label>Monday</ion-label>
+          <ion-checkbox color="primary" (click)="checkChore(chore.id, 'monday', chore.monday)" [checked]="chore.monday"
+            slot="start"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tuesday</ion-label>
+          <ion-checkbox color="primary" (click)="checkChore(chore.id, 'tuesday', chore.tuesday)"
+            [checked]="chore.tuesday" slot="start"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Wednesday</ion-label>
+          <ion-checkbox color="primary" (click)="checkChore(chore.id, 'wednesday', chore.wednesday)"
+            [checked]="chore.wednesday" slot="start"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Thursday</ion-label>
+          <ion-checkbox color="primary" (click)="checkChore(chore.id, 'thursday', chore.thursday)"
+            [checked]="chore.thursday" slot="start"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Friday</ion-label>
+          <ion-checkbox color="primary" (click)="checkChore(chore.id, 'friday', chore.friday)" [checked]="chore.friday"
+            slot="start"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Saturday</ion-label>
+          <ion-checkbox color="primary" (click)="checkChore(chore.id, 'saturday', chore.saturday)"
+            [checked]="chore.saturday" slot="start"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Sunday</ion-label>
+          <ion-checkbox color="primary" (click)="checkChore(chore.id, 'sunday', chore.sunday)" [checked]="chore.sunday"
+            slot="start"></ion-checkbox>
+        </ion-item>
+      </ion-list>
     </ion-item>
   </ion-list>
 </ion-content>

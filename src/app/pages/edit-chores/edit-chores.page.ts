@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonRouterOutlet, ModalController } from '@ionic/angular';
-import { Select, Store, UpdateState } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { UpdateChore } from 'src/app/store/chores/chores.action';
 import { Chore } from 'src/app/store/chores/chores.model';
@@ -18,7 +18,6 @@ export class EditChoresPage {
   constructor(public routerOutlet: IonRouterOutlet, public modalController: ModalController, private store: Store) { }
 
   public checkChore(id: string, day: string, value: boolean) {
-    // BUG: this only works for the first edit!!!
     this.store.dispatch(new UpdateChore(id, day, !value))
   }
 }
