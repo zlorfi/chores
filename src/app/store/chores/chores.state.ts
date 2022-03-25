@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core'
-import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store'
+import { Action, Selector, State, StateContext } from '@ngxs/store'
 import { patch, updateItem } from '@ngxs/store/operators'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { ApiService } from '../../services/api/api.service'
 import { ChoresToday, GetChores, ToggleItem, UpdateChore, WeeklySummary } from './chores.action'
 import { DailyChore, ChoresModel, Day, Chore } from './chores.model'
+import { size as _size } from 'lodash'
 
 @State<ChoresModel>({
   name: 'chores',
@@ -16,11 +17,8 @@ import { DailyChore, ChoresModel, Day, Chore } from './chores.model'
   }
 })
 @Injectable()
-export class ChoresState implements NgxsOnInit {
+export class ChoresState {
   public constructor(private api: ApiService) { }
-
-  public ngxsOnInit(ctx: StateContext<ChoresModel>): void {
-  }
 
   @Selector()
   public static getChoresToday(state: ChoresModel): DailyChore[] {
@@ -39,9 +37,8 @@ export class ChoresState implements NgxsOnInit {
 
   @Selector()
   public static amountLeft(state: ChoresModel): number {
-    return state.items.filter(chore => !chore.complete).length
+    return _size(state.items.filter(chore => !chore.complete))
   }
-
 
   @Selector()
   public static weeklySummary(state: ChoresModel): Day[] {
