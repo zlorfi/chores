@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Action, NgxsOnInit, Selector, State, StateContext } from '@ngxs/store'
+import { Action, Selector, State, StateContext } from '@ngxs/store'
 import { Observable } from 'rxjs'
 import { ApiService } from '../../services/api/api.service'
 import { Login, Logout } from './user.action'
@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators'
   }
 })
 @Injectable()
-export class UserState implements NgxsOnInit {
+export class UserState {
   public constructor(private api: ApiService) { }
 
   @Selector()
@@ -50,9 +50,6 @@ export class UserState implements NgxsOnInit {
             canEdit: response.body.canEdit,
             name: response.body.name
           })
-
-          localStorage.setItem('apiKey', response.body.token)
-          localStorage.setItem('userId', response.body.user)
         }
       })
     )
@@ -60,20 +57,9 @@ export class UserState implements NgxsOnInit {
 
   @Action(Logout)
   public logout(ctx: StateContext<UserModel>): void {
-    localStorage.removeItem('apiKey')
-    localStorage.removeItem('userId')
-    localStorage.removeItem('canEdit')
-
     ctx.patchState({
       id: null,
       apiKey: null
-    })
-  }
-
-  public ngxsOnInit(ctx: StateContext<UserModel>): void {
-    ctx.patchState({
-      apiKey: localStorage.getItem('apiKey') || null,
-      id: localStorage.getItem('userId') || null
     })
   }
 }

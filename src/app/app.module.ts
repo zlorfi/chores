@@ -5,7 +5,6 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin'
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular'
 import { NgxsModule, NGXS_PLUGINS } from '@ngxs/store'
 import { environment } from 'src/environments/environment'
-
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { UserState } from './store/user/user.state'
@@ -14,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { ChoresState } from './store/chores/chores.state'
 import { HttpConfigInterceptor } from './services/api/http-interceptor'
 import { logoutPlugin } from './services/meta.reducer'
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin'
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +28,9 @@ import { logoutPlugin } from './services/meta.reducer'
     }),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production
+    }),
+    NgxsStoragePluginModule.forRoot({
+      key: [AppState]
     })
   ],
   providers: [
